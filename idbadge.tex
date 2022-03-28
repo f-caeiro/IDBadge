@@ -1,0 +1,80 @@
+%%
+%% ID Conference Badge Template
+%%
+%% Version 2019-06-24
+%%
+%% Author: Frederico Caeiro (fac@fct.unl.pt)
+%% Nova School of Science and Tecnology (www.fct.unl.pt)
+%% Universidade NOVA de Lisboa (www.unl.pt)
+%%
+%% Based on the template by Neil Carter (https://psy.swan.ac.uk/staff/carter/unix/latex_badges.htm)
+%%
+%%
+\documentclass[a4paper,12pt]{article}
+\usepackage{fullpage}
+%\usepackage{filecontents}
+\usepackage{csvtools}
+\usepackage{eso-pic}
+\usepackage{graphicx}
+\usepackage{fix-cm}
+\usepackage{xcolor}
+\usepackage{ifthen}
+\usepackage[utf8]{inputenc}
+\pagestyle{empty}
+
+\setlength{\oddsidemargin}{-15mm}
+\addtolength{\textheight}{25mm}
+
+\AddToShipoutPicture{%
+   \setlength\unitlength{1mm}
+}
+\definecolor{badgecolor2}{RGB}{192,192,192}%
+
+
+\newcommand{\logo}[0]{%
+\includegraphics[width=1.0\textwidth,keepaspectratio=true, trim={0cm 22cm 0cm 32cm}, clip=true]{logo_nova-st_rgb_horiz_positivo.png}
+}
+
+\newcommand{\createbadge}[4]{
+\applyCSVfile{#2}{%
+\smallskip%    
+\noindent
+\fcolorbox{#3}{#4}{
+\begin{minipage}[t][55mm]{90mm}
+\hspace{-.1cm}
+\logo        
+\vspace{-1mm}
+
+   \sffamily \centering
+   \fontsize{25}{36}\selectfont\textbf{\insertName}
+   \LARGE \vspace{8mm} %\itshape
+   
+\ifthenelse{#1=1}{
+   \fontsize{18}{16}\selectfont\insertAffiliation        
+  }{}%end if
+\end{minipage}
+} %
+}%end cvs
+}%
+
+\begin{filecontents*}{organizers.csv}
+Name,Affiliation 
+Organizer name 1, Organization 1
+Organizer name 2, Organization 2
+Organizer name 3, Organization 3
+\end{filecontents*}
+
+\begin{filecontents*}{participants.csv}
+Name
+participant name 1
+participant name 2
+participant name 3
+participant name 4
+participant name 5
+\end{filecontents*}
+
+\begin{document}
+\fboxrule=2pt
+\createbadge{1}{organizers.csv}{red}{badgecolor2}
+\createbadge{0}{participants.csv}{black}{white}
+\end{document}
