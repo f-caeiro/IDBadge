@@ -1,4 +1,3 @@
-# IDBadge
 # ID Conference Badge Template
 #
 # Version 2019-06-24
